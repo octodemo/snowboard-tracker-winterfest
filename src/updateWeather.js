@@ -1,6 +1,6 @@
 import { Octokit } from "octokit";
 import { getWeatherFor } from './getWeather.js';
-import { WeatherFields } from './projectFields.js';
+import { WeatherFields } from './WeatherFields.js';
 
 const { GITHUB_TOKEN, PROJECT_ID } = process.env;
 if(!GITHUB_TOKEN) {
