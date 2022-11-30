@@ -1,0 +1,20 @@
+{
+  "name": "snowboard-tracker-winterfest",
+  "version": "1.0.0",
+  "description": "Repository for a Presentation about GitHub Projects & Actions at GitHub Winterfest 2022.",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/octodemo/snowboard-tracker-winterfest.git"
+  },
+  "keywords": [],
+  "author": "David Losert <davelosert@github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "3.3.0",
+    "octokit": "2.0.10"
+  }
+}

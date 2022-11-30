@@ -1,0 +1,45 @@
+name: Get Ride Stats
+
+on: 
+  issues:
+    types: [ edited ]
+
+jobs:
+  get_stats:
+    name: Parse the stats
+    runs-on: ubuntu-latest
+    outputs:
+      stats_payload: ${{ steps.issue_body_parser.outputs.payload }}
+    steps:
+      - name: Parse Issue Body for Stats
+        uses: peter-murray/issue-body-parser-action@v1
+        id: issue_body_parser
+        with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            issue_id: ${{ github.event.issue.number }}
+
+  update_project_and_close_issue:
+    name: Update the project and close the issue
+    needs: [ get_stats ]
+    if: ${{ fromJson(needs.get_stats.outputs.stats_payload).done }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: monry/actions-get-project-item-id@v2
+      id: get-item-id
+      with:
+        # Personal Access Token that with `repo` and `org:read` are granted.
+        github-token: ${{ secrets.PROJECTS_TOKEN }}
+        project-id: ${{ secrets.PROJECT_ID }}
+        issue-id: ${{ github.event.issue.node_id }}
+    - uses: titoportas/update-project-fields@v0.1.0
+      with:
+        project-url: ${{ secrets.PROJECT_URL }}
+        github-token: ${{ secrets.PROJECTS_TOKEN }}
+        item-id: ${{ steps.get-item-id.outputs.project-item-id }}
+        field-keys: 🔥 Burned Calories,🔁  Overall Distance (in km),🚀  Maximum Speed
+        field-values: >
+          ${{ fromJson(needs.get_stats.outputs.stats_payload).burnedCalories }},
+          ${{ fromJson(needs.get_stats.outputs.stats_payload).overallDistance }},
+          ${{ fromJson(needs.get_stats.outputs.stats_payload).maxSpeed }}
+    - name: Close Issue
+      uses: peter-evans/close-issue@v2

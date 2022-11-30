@@ -1,0 +1,21 @@
+name: Update Weather Data
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update_weather:
+    name: Update Weather Data in Project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - run: npm ci
+      - name: Update Weather Data
+        run: node src/updateWeatherData.js
+        env:
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}

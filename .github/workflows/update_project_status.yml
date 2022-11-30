@@ -1,0 +1,30 @@
+name: Update Project Status
+
+on:
+  issues:
+    types: [ assigned, unassigned ]
+
+jobs:
+  update-status:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: haya14busa/action-cond@v1
+        id: get-value
+        with:
+          cond: ${{ github.event.action == 'assigned' }}
+          if_true: "🏂 Currently Riding"
+          if_false: "⌛ Open to explore"
+      - uses: monry/actions-get-project-item-id@v2
+        id: get-item-id
+        with:
+          # Personal Access Token that with `repo` and `org:read` are granted.
+          github-token: ${{ secrets.PROJECTS_TOKEN }}
+          project-id: ${{ secrets.PROJECT_ID }}
+          issue-id: ${{ github.event.issue.node_id }}
+      - uses: titoportas/update-project-fields@v0.1.0
+        with:
+          project-url: https://github.com/users/davelosert/projects/3
+          github-token: ${{ secrets.PROJECTS_TOKEN }}
+          item-id: ${{ steps.get-item-id.outputs.project-item-id }}
+          field-keys: Status
+          field-values: ${{ steps.get-value.outputs.value }}
