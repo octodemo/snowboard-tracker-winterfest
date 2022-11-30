@@ -18,7 +18,7 @@ jobs:
           node-version: 18.x
       - run: npm ci
       - name: Update Weather Data
-        run: node src/updateWeatherData.js
+        run: node src/updateWeather.js
         env:
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
