@@ -2,6 +2,10 @@ name: Update Weather Data
 
 on:
   workflow_dispatch:
+  ## This could also be run on a schedule to update the weather data every morning
+  ## so that we always have the latest weather information!
+  # schedule:
+  #   - cron: '0 7 * * *'
 
 jobs:
   update_weather:
