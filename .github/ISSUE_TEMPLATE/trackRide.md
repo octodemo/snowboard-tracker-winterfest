@@ -9,11 +9,13 @@ assignees: ''
 
 ## Ride Stats
 
+**Fill this out and set done to `true` after the ride**
+
 ```json
 {
   "done": false,
-  "maxSpeed": 0,
-  "overallDistance": 0,
-  "burnedCalories": 0
+  "maxSpeed": tbd,
+  "overallDistance": tbd,
+  "burnedCalories": tbd
 }
 ```
