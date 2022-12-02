@@ -28,13 +28,13 @@ jobs:
       id: get-item-id
       with:
         # Personal Access Token that with `repo` and `org:read` are granted.
-        github-token: ${{ secrets.PROJECTS_TOKEN }}
+        github-token: ${{ secrets.PROJECT_TOKEN }}
         project-id: ${{ secrets.PROJECT_ID }}
         issue-id: ${{ github.event.issue.node_id }}
     - uses: titoportas/update-project-fields@v0.1.0
       with:
         project-url: ${{ secrets.PROJECT_URL }}
-        github-token: ${{ secrets.PROJECTS_TOKEN }}
+        github-token: ${{ secrets.PROJECT_TOKEN }}
         item-id: ${{ steps.get-item-id.outputs.project-item-id }}
         field-keys: 🔥 Burned Calories,🔁  Overall Distance (in km),🚀  Maximum Speed
         field-values: >
